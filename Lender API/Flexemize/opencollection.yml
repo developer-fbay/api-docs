@@ -21,6 +21,7 @@ request:
 
 docs:
   content: |-
+    https://app.swaggerhub.com/apis-docs/Fleximize/Application_API/2.0.0?view=elementsDocs
     Gets authentication token
     post
     https://api.fleximize.com/api/v2/get_token
