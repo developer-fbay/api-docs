@@ -1,0 +1,597 @@
+{
+  "info": {
+    "_postman_id": "a7296aab-eb76-49f8-9a24-ebb3605a27dd",
+    "name": "Campaign Calculator API Tests",
+    "description": "Complete API endpoint tests for Campaign Calculator application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47453723"
+  },
+  "item": [
+    {
+      "name": "Instantly API",
+      "item": [
+        {
+          "name": "Get All Campaigns",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{instantly_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{instantly_base_url}}/campaigns",
+              "host": [
+                "{{instantly_base_url}}"
+              ],
+              "path": [
+                "campaigns"
+              ]
+            },
+            "description": "Fetches all campaigns with pagination support"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Campaigns (Paginated)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{instantly_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{instantly_base_url}}/campaigns?starting_after={{starting_after_token}}",
+              "host": [
+                "{{instantly_base_url}}"
+              ],
+              "path": [
+                "campaigns"
+              ],
+              "query": [
+                {
+                  "key": "starting_after",
+                  "value": "{{starting_after_token}}",
+                  "description": "Token from previous page"
+                }
+              ]
+            },
+            "description": "Get next page of campaigns"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single Campaign",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{instantly_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{instantly_base_url}}/campaigns/{{campaign_id}}",
+              "host": [
+                "{{instantly_base_url}}"
+              ],
+              "path": [
+                "campaigns",
+                "{{campaign_id}}"
+              ]
+            },
+            "description": "Get a single campaign by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Campaign Analytics (Single)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{instantly_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{instantly_base_url}}/campaigns/analytics?id={{campaign_id}}",
+              "host": [
+                "{{instantly_base_url}}"
+              ],
+              "path": [
+                "campaigns",
+                "analytics"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{campaign_id}}",
+                  "description": "Campaign ID"
+                }
+              ]
+            },
+            "description": "Get analytics for a single campaign"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Campaign Analytics (Batch)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{instantly_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{instantly_base_url}}/campaigns/analytics?ids={{campaign_ids}}",
+              "host": [
+                "{{instantly_base_url}}"
+              ],
+              "path": [
+                "campaigns",
+                "analytics"
+              ],
+              "query": [
+                {
+                  "key": "ids",
+                  "value": "{{campaign_ids}}",
+                  "description": "Comma-separated campaign IDs (max 50)"
+                }
+              ]
+            },
+            "description": "Get analytics for multiple campaigns"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Accounts Analytics (Mailboxes)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{instantly_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{instantly_base_url}}/accounts/analytics/daily",
+              "host": [
+                "{{instantly_base_url}}"
+              ],
+              "path": [
+                "accounts",
+                "analytics",
+                "daily"
+              ]
+            },
+            "description": "Get email accounts/mailboxes"
+          },
+          "response": []
+        },
+        {
+          "name": "Get DFY Email Account Orders (Mailboxes Fallback)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{instantly_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{instantly_base_url}}/dfy-email-account-orders",
+              "host": [
+                "{{instantly_base_url}}"
+              ],
+              "path": [
+                "dfy-email-account-orders"
+              ]
+            },
+            "description": "Alternative endpoint for email accounts"
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "ZGUwZGI2MzgtODUxZS00YTJlLWJkY2UtMTg2OTVhM2UxMGIyOlFrb1RkQVpLa3ZGSA==",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mailin API",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "// Save token to environment",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.environment.set(\"mailin_token\", jsonData.token);",
+                  "    console.log(\"Token saved to environment\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{mailin_email}}\",\n  \"password\": \"{{mailin_password}}\",\n  \"device_name\": \"Campaign Calculator App\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{mailin_base_url}}/auth/login",
+              "host": [
+                "{{mailin_base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login to get bearer token"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Domains",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Get token from environment",
+                  "var token = pm.environment.get(\"mailin_token\");",
+                  "if (!token) {",
+                  "    console.log(\"Warning: No token found. Run login request first.\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 401) {",
+                  "    console.log(\"Token expired. Re-run login request.\");",
+                  "}",
+                  "",
+                  "console.log(\"Response:\", pm.response.json());"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mailin_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{mailin_base_url}}/domains?page=1&per_page=100",
+              "host": [
+                "{{mailin_base_url}}"
+              ],
+              "path": [
+                "domains"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "per_page",
+                  "value": "100",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "Get all domains with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Mailboxes",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Get token from environment",
+                  "var token = pm.environment.get(\"mailin_token\");",
+                  "if (!token) {",
+                  "    console.log(\"Warning: No token found. Run login request first.\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 401) {",
+                  "    console.log(\"Token expired. Re-run login request.\");",
+                  "}",
+                  "",
+                  "console.log(\"Response:\", pm.response.json());"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mailin_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{mailin_base_url}}/mailboxes?page=1&per_page=100",
+              "host": [
+                "{{mailin_base_url}}"
+              ],
+              "path": [
+                "mailboxes"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "per_page",
+                  "value": "100",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "Get all mailboxes with pagination"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "GoDaddy API",
+      "item": [
+        {
+          "name": "Get All Domains",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Get credentials from environment",
+                  "var apiKey = pm.environment.get(\"godaddy_api_key\");",
+                  "var apiSecret = pm.environment.get(\"godaddy_api_secret\");",
+                  "",
+                  "// Set authorization header in SSO key format",
+                  "pm.request.headers.add({",
+                  "    key: 'Authorization',",
+                  "    value: 'sso-key ' + apiKey + ':' + apiSecret",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "console.log(\"Response:\", pm.response.json());",
+                  "console.log(\"Number of domains:\", pm.response.json().length);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{godaddy_base_url}}/v1/domains?limit=100",
+              "host": [
+                "{{godaddy_base_url}}"
+              ],
+              "path": [
+                "v1",
+                "domains"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of results per page"
+                },
+                {
+                  "key": "marker",
+                  "value": "{{godaddy_marker}}",
+                  "description": "Domain name for pagination (optional)",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all domains with pagination"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "instantly_base_url",
+      "value": "https://api.instantly.ai/api/v2",
+      "type": "string"
+    },
+    {
+      "key": "mailin_base_url",
+      "value": "https://api.mailin.ai/api/v1/public",
+      "type": "string"
+    },
+    {
+      "key": "godaddy_base_url",
+      "value": "https://api.godaddy.com",
+      "type": "string"
+    }
+  ]
+}
