@@ -1,0 +1,81 @@
+opencollection: 1.0.0
+
+info:
+  name: Fleximize Applications API
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+docs:
+  content: |-
+    Gets authentication token
+    post
+    https://api.fleximize.com/api/v2/get_token
+    Gets authentication token using credentials.
+
+    Token is valid for 7 days. After that new token should be obtained using the same endpoint
+
+    Request
+    Body
+    application/x-www-form-urlencodedapplication/json
+
+    application/x-www-form-urlencoded
+    Fleximize uses API tokens to allow access to the API called JWT.
+
+    All other Fleximize endpoints require authorization using the API token, which is expected to be included in all API requests to the server in an Auth Bearer token header.
+
+    To get your token, call this endpoint first with your broker account login details.
+
+    Login credentials object
+
+    user_name
+    string<email>
+    required
+    Account username. Usually email address
+
+    <= 255 characters
+    Example:
+    example@example.com
+    password
+    string<password>
+    required
+    Account password
+
+    Example:
+    somepassword
+    Responses
+    200
+    401
+    Returned authorisation token to use for all requests
+
+    Body
+
+    application/json
+
+    application/json
+    token
+    string
+    Bearer token
+
+    Example:
+    d290f1ee6c544b0190e6d701748f0851
+  type: text/markdown
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

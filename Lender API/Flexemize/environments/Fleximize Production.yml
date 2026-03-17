@@ -1,0 +1,4 @@
+name: Fleximize Production
+variables:
+  - name: baseUrl
+    value: https://api.fleximize.com/api/v2

@@ -1,0 +1,82 @@
+info:
+  name: Gets list of allowed document types to upload
+  type: http
+  seq: 4
+  tags:
+    - application
+    - documents
+
+http:
+  method: GET
+  url: "{{baseUrl}}/application/document-types"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status === 200) {
+          bru.setVar('postApplicationDocuments_document_type', res.body.0/id);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Response with list of all alowed document types ID and description
+    request:
+      url: "{{baseUrl}}/application/document-types"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          [
+            {
+              "id": "",
+              "type": ""
+            }
+          ]
+  - name: 400 Response
+    description: Error response from server
+    request:
+      url: "{{baseUrl}}/application/document-types"
+      method: GET
+    response:
+      status: 400
+      statusText: Bad Request
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": ""
+          }
+  - name: 401 Response
+    description: Invalid credentials
+    request:
+      url: "{{baseUrl}}/application/document-types"
+      method: GET
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": ""
+          }

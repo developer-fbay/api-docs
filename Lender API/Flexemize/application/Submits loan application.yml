@@ -1,0 +1,307 @@
+info:
+  name: Submits loan application
+  type: http
+  seq: 1
+  tags:
+    - application
+
+http:
+  method: POST
+  url: "{{baseUrl}}/application"
+  body:
+    type: json
+    data: |-
+      {
+        "is_test": false,
+        "business_type_id": 1,
+        "company_name": "",
+        "registration_number": "",
+        "title_id": 1,
+        "first_name": "",
+        "last_name": "",
+        "phone": "",
+        "email": "",
+        "loan_amount": 0,
+        "term": 0,
+        "funding_urgency": 1,
+        "loan_purpose_id": 1,
+        "other_purpose": "",
+        "internal_id": "",
+        "notes": "",
+        "privacy_policy_consent": false,
+        "cra_checks_consent": false,
+        "refer_consent": false,
+        "company": {
+          "vat_no": "",
+          "monthly_sales": 0,
+          "date_of_creation": "",
+          "trading_date": "",
+          "same_address": false,
+          "registered_address": {
+            "abode_name_no": "",
+            "street": "",
+            "street2": "",
+            "town": "",
+            "county": "",
+            "postcode": ""
+          },
+          "trading_address": {},
+          "directors": [],
+          "shareholders": []
+        }
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status === 200) {
+          bru.setVar('postApplicationDocuments_application_id', res.body.application_id);
+          bru.setVar('getApplicationStatus_application_id', res.body.application_id);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Returns application ID and status
+    request:
+      url: "{{baseUrl}}/application"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "is_test": false,
+            "business_type_id": 1,
+            "company_name": "",
+            "registration_number": "",
+            "title_id": 1,
+            "first_name": "",
+            "last_name": "",
+            "phone": "",
+            "email": "",
+            "loan_amount": 0,
+            "term": 0,
+            "funding_urgency": 1,
+            "loan_purpose_id": 1,
+            "other_purpose": "",
+            "internal_id": "",
+            "notes": "",
+            "privacy_policy_consent": false,
+            "cra_checks_consent": false,
+            "refer_consent": false,
+            "company": {
+              "vat_no": "",
+              "monthly_sales": 0,
+              "date_of_creation": "",
+              "trading_date": "",
+              "same_address": false,
+              "registered_address": {
+                "abode_name_no": "",
+                "street": "",
+                "street2": "",
+                "town": "",
+                "county": "",
+                "postcode": ""
+              },
+              "trading_address": {},
+              "directors": [],
+              "shareholders": []
+            }
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "application_id": "",
+            "internal_score_status": "PASSED"
+          }
+  - name: 400 Response
+    description: Error response from server
+    request:
+      url: "{{baseUrl}}/application"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "is_test": false,
+            "business_type_id": 1,
+            "company_name": "",
+            "registration_number": "",
+            "title_id": 1,
+            "first_name": "",
+            "last_name": "",
+            "phone": "",
+            "email": "",
+            "loan_amount": 0,
+            "term": 0,
+            "funding_urgency": 1,
+            "loan_purpose_id": 1,
+            "other_purpose": "",
+            "internal_id": "",
+            "notes": "",
+            "privacy_policy_consent": false,
+            "cra_checks_consent": false,
+            "refer_consent": false,
+            "company": {
+              "vat_no": "",
+              "monthly_sales": 0,
+              "date_of_creation": "",
+              "trading_date": "",
+              "same_address": false,
+              "registered_address": {
+                "abode_name_no": "",
+                "street": "",
+                "street2": "",
+                "town": "",
+                "county": "",
+                "postcode": ""
+              },
+              "trading_address": {},
+              "directors": [],
+              "shareholders": []
+            }
+          }
+    response:
+      status: 400
+      statusText: Bad Request
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": ""
+          }
+  - name: 401 Response
+    description: Invalid credentials
+    request:
+      url: "{{baseUrl}}/application"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "is_test": false,
+            "business_type_id": 1,
+            "company_name": "",
+            "registration_number": "",
+            "title_id": 1,
+            "first_name": "",
+            "last_name": "",
+            "phone": "",
+            "email": "",
+            "loan_amount": 0,
+            "term": 0,
+            "funding_urgency": 1,
+            "loan_purpose_id": 1,
+            "other_purpose": "",
+            "internal_id": "",
+            "notes": "",
+            "privacy_policy_consent": false,
+            "cra_checks_consent": false,
+            "refer_consent": false,
+            "company": {
+              "vat_no": "",
+              "monthly_sales": 0,
+              "date_of_creation": "",
+              "trading_date": "",
+              "same_address": false,
+              "registered_address": {
+                "abode_name_no": "",
+                "street": "",
+                "street2": "",
+                "town": "",
+                "county": "",
+                "postcode": ""
+              },
+              "trading_address": {},
+              "directors": [],
+              "shareholders": []
+            }
+          }
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": ""
+          }
+  - name: 422 Response
+    description: This response indicates that the application has been blocked by our systems and cannot be accepted by Fleximize. This is for operational reasons rather than technical ones. If you see this response, please do not try to resubmit the application. If you require further information on the individual application, please contact Fleximize.
+    request:
+      url: "{{baseUrl}}/application"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "is_test": false,
+            "business_type_id": 1,
+            "company_name": "",
+            "registration_number": "",
+            "title_id": 1,
+            "first_name": "",
+            "last_name": "",
+            "phone": "",
+            "email": "",
+            "loan_amount": 0,
+            "term": 0,
+            "funding_urgency": 1,
+            "loan_purpose_id": 1,
+            "other_purpose": "",
+            "internal_id": "",
+            "notes": "",
+            "privacy_policy_consent": false,
+            "cra_checks_consent": false,
+            "refer_consent": false,
+            "company": {
+              "vat_no": "",
+              "monthly_sales": 0,
+              "date_of_creation": "",
+              "trading_date": "",
+              "same_address": false,
+              "registered_address": {
+                "abode_name_no": "",
+                "street": "",
+                "street2": "",
+                "town": "",
+                "county": "",
+                "postcode": ""
+              },
+              "trading_address": {},
+              "directors": [],
+              "shareholders": []
+            }
+          }
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "error": ""
+          }
