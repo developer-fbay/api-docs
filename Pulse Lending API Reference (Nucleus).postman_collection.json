@@ -1,0 +1,183 @@
+{
+  "info": {
+    "_postman_id": "68444bf9-64d0-41bf-8b9d-9f2759ee708e",
+    "name": "Pulse Lending API Reference (Nucleus)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47453723",
+    "_collection_link": "https://go.postman.co/collection/47453723-68444bf9-64d0-41bf-8b9d-9f2759ee708e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Get Bearer Token (OAuth2)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.access_token) {",
+                  "  pm.environment.set('access_token', json.access_token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "client_id",
+                  "value": "client_id",
+                  "type": "text"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "client_secret",
+                  "type": "text"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "grant_type",
+                  "type": "text"
+                },
+                {
+                  "key": "scope",
+                  "value": "scope",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "baseUrl/authorization/oauth2/v2.0/token",
+              "host": [
+                "baseUrl"
+              ],
+              "path": [
+                "authorization",
+                "oauth2",
+                "v2.0",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Applications",
+      "item": [
+        {
+          "name": "Create Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer access_token"
+              },
+              {
+                "key": "Ocp-Apim-Subscription-Key",
+                "value": "subscription_key"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"application\": {\n    \"consent_to_search\": true\n  },\n  \"applicant\": {\n    \"first_name\": \"Caroline\",\n    \"last_name\": \"DAY\",\n    \"email\": \"anil.jain@mypulse.io\",\n    \"phone_number\": \"9685748547\",\n    \"address\": [\n      {\n        \"house_number\": \"\",\n        \"flat_number\": \"33a\",\n        \"house_name\": \"\",\n        \"street\": \"Gloucester Road\",\n        \"town\": \"Chorley\",\n        \"postcode\": \"PR7 3HN\",\n        \"residential_status\": \"owner\"\n      }\n    ],\n    \"date_of_birth\": \"1983-02-03\",\n    \"percent_of_control\": \"\",\n    \"role\": \"Director\",\n    \"guarantor\": true,\n    \"send_ob_link\": true,\n    \"send_oa_link\": true\n  },\n  \"directors\": [\n    {\n      \"first_name\": \"Caroline\",\n      \"last_name\": \"DAY\",\n      \"email\": \"anil.jain@mypulse.io\",\n      \"phone_number\": \"9685748547\",\n      \"date_of_birth\": \"1983-02-23\",\n      \"percent_of_control\": \"\",\n      \"role\": \"Director\",\n      \"guarantor\": true,\n      \"send_ob_link\": true,\n      \"send_oa_link\": true,\n      \"address\": [\n        {\n          \"house_number\": \"\",\n          \"flat_number\": \"33a\",\n          \"house_name\": \"\",\n          \"street\": \"Gloucester Road\",\n          \"town\": \"Chorley\",\n          \"postcode\": \"PR7 3HN\",\n          \"residential_status\": \"owner\"\n        }\n      ]\n    }\n  ],\n  \"company\": {\n    \"company_name\": \"DAY'S HOLDINGS LIMITED\",\n    \"companies_house_id\": \"05452545\",\n    \"last_12_months_turnover\": 123456,\n    \"loan_amount\": 12345,\n    \"loan_term\": 32\n  }\n}"
+            },
+            "url": {
+              "raw": "baseUrl/v1/Create-Application",
+              "host": [
+                "baseUrl"
+              ],
+              "path": [
+                "v1",
+                "Create-Application"
+              ]
+            },
+            "description": "Note: your sample shows percent_of_control as an empty string (\"\"). If the API enforces this as a number, set it to a numeric value (e.g. 100) instead of an empty string."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Application Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer access_token"
+              },
+              {
+                "key": "Ocp-Apim-Subscription-Key",
+                "value": "subscription_key"
+              }
+            ],
+            "url": {
+              "raw": "baseUrl/v1/Application-Status/application_id",
+              "host": [
+                "baseUrl"
+              ],
+              "path": [
+                "v1",
+                "Application-Status",
+                "application_id"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://demo-api.mypulse-sandbox.io"
+    },
+    {
+      "key": "subscription_key",
+      "value": "<your_subscription_key>"
+    },
+    {
+      "key": "client_id",
+      "value": "<your_client_id>"
+    },
+    {
+      "key": "client_secret",
+      "value": "<your_client_secret>"
+    },
+    {
+      "key": "grant_type",
+      "value": "<grant_type>"
+    },
+    {
+      "key": "scope",
+      "value": "<scope>"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "application_id",
+      "value": "abc12345"
+    }
+  ]
+}
